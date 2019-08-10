@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis:200,400');
+.card_images{
+    width: 120px;
+    height: 150px;
+    padding: 5px;
+    border-radius:8px;
+    border:none;
+}
+.neon-heading
+{
+    color:#fff;
+    font-family: 'Dosis', Calibri, sans-serif;
+    text-transform: uppercase;
+    font-weight: 200;
+    text-align: center;
+}
+.neon-heading.first
+{
+    font-size: 50px;
+    text-shadow: 0px 0px 10px #9D00FF,
+    0px 0px 20px #9D00FF,
+    0px 0px 30px #9D00FF,
+    0px 0px 40px #9D00FF,
+    0px 0px 50px #9D00FF,
+    0px 0px 60px #9D00FF;
+    animation: pulsating 3s infinite;
+}
+.neon-heading.second
+{
+    font-size: 80px;
+    text-shadow :0px 0px 10px #eb3535,
+    0px 0px 10px #eb3535,
+    0px 0px 10px #eb3535,
+    0px 0px 10px #eb3535,
+    0px 0px 10px #eb3535,
+    0px 0px 10px #eb3535;
+}
+span.flickering-1
+{
+    animation: flickering-1 2s infinite;
+}
+span.flickering-2
+{
+    animation: flickering-2 4s infinite;
+}
+span.flickering-3
+{
+    animation: flickering-3 5s infinite;
+}
+span.flickering-4
+{
+    animation:flickering-1 4s infinite;
+}
+span.flickering-5
+{
+    animation:flickering-3 2s infinite;
+}
+span.flickering-6
+{
+    animation:flickering-3 4s infinite;
+}
+span.flickering-7
+{
+    animation:flickering-2 5s infinite;
+}
+@keyframes pulsating
+{
+    0%{text-shadow: 0px 0px 0px;
+        opacity:0;}
+    50%{text-shadow :0px 0px 10px #9D00FF,
+        0px 0px 20px #9D00FF,
+        0px 0px 30px #9D00FF,
+        0px 0px 40px #9D00FF,
+        0px 0px 50px #9D00FF,
+        0px 0px 60px #9D00FF;
+        opacity: 1;
+    }
+    100%{text-shadow: 0px 0px 0px;
+        opacity:0;}
+}
+@keyframes flickering-1
+{
+    0%{opacity: 1}
+    52%{opacity: 1}
+    55%{opacity: 0}
+    56%{opacity: 1}
+    100%{opacity: 1}
+}
+@keyframes flickering-2
+{
+    0%{opacity:1}
+    62%{opacity: 1}
+    65%{opacity: 0}
+    66%{opacity: 1}
+    69%{opacity: 0}
+    70%{opacity: 1}
+    73%{opacity: 0}
+    74%{opacity: 1}
+    100%{opacity: 1}
+}
+@keyframes flickering-3
+{
+    0%{opacity: 1;}
+    82%{opacity: 1;}
+    84%{opacity: 0;}
+    85%{opacity: 1;}
+    87%{opacity: 0;}
+    88%{opacity: 1;}
+    90%{opacity: 0;}
+    91%{opacity: 1;}
+    100%{opacity: 1;}
+}
+#show_button{
+    width: 120px;
+    height : 50px;
+    font-size: 20px;
+    font-family: Georgia;
+    border-radius: 20px;
+    border:none;
+}
+#show_button:hover{
+    background-color:#eb3535;
+    color:white;
+    cursor: pointer;
+}
+#shuffle_button{
+    width: 180px;
+    height: 50px;
+    font-size: 20px;
+    font-family: Georgia;
+    border-radius: 20px;
+    border: none;
+}
+#shuffle_button:hover{
+    background-color:#eb3535;
+    color:white;
+    cursor: pointer;
+}
+.flip-box{
+    width: 120px;
+    height: 150px;
+}
+.flip-box-inner{
+    width: 120px;
+    height: 150px;
+    text-align: center;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+.flip-box-front, .flip-box-back{
+    width: 120px;
+    height: 150px;
+}
