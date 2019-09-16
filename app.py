@@ -1,8 +1,23 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,request,redirect
+from flask_sqlalchemy import SQLAlchemy
 import os,random
+from sqlalchemy.event import listen
+from sqlalchemy import event, DDL
 app = Flask(__name__)
-hand = []
-hand1 = []
+
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///PokerDatabase.db'
+
+db = SQLAlchemy(app)
+
+class PokerDB(db.Model):
+	id = db.Column(db.Integer,primary_key = True)
+	username = db.Column(db.String(200),nullable = False,unique = True)
+	name = db.Column(db.String(200),nullable = False)
+	score = db.Column(db.Integer,default=0)
+	def __repr__(self):
+		return self.id
+		
+
 app.config['image_folder'] = os.path.join("static","images")
 cards = ['A0.png','A1.png','A2.png','A3.png',
         '20.png','21.png','22.png','23.png',
@@ -19,23 +34,40 @@ cards = ['A0.png','A1.png','A2.png','A3.png',
         'K0.png','K1.png','K2.png','K3.png']
 
 
+
 @app.route('/')
 def index():
+
 	random.shuffle(cards)
 	hand_player1 = [cards[0],cards[1],cards[2],cards[3],cards[4]]
 	hand_player2= [cards[5],cards[6],cards[7],cards[8],cards[9]]
 	
 	winner = poker(hand_player1,hand_player2)
+	user1 = PokerDB.query.filter_by(id=1).first()
+	user2 = PokerDB.query.filter_by(id=2).first()
 	if(winner == hand_player2):
 		str = "Congratulations! You Won The Game"
+		user1.score = user1.score + 1
 	else:
 		str = "Better Luck Next Time"
-	return render_template("index.html",hand1=hand_player1,hand2=hand_player2,str=str,winner=winner)
+		user2.score = user2.score + 1
+	users = [user1,user2]
+	db.session.commit()
+
+	return render_template("index.html",hand1=hand_player1,hand2=hand_player2,str=str,winner=winner,users=users)
 
 @app.route('/')
 def shuffleCards():
 	random.shuffle(cards)
-	
+
+
+
+
+
+
+
+
+
 def straight(ranks):
 	if len(set(ranks))==5 and (max(ranks)-min(ranks)==4):
 		return True
@@ -102,9 +134,9 @@ def hand_rank(hand):
 	return (0,ranks)
 
 if __name__ == '__main__':
-	app.config['DEBUG']=True
-	app.run(port=8080)
-	
-	
-	
-	
+	db.create_all()
+	db.session.execute('INSERT OR IGNORE INTO PokerDB values(1,"Jatin001","Jatin",0)')
+	db.session.execute('INSERT OR IGNORE INTO PokerDB values(2,"System","PC",0)')
+	db.session.commit()
+	app.run(debug=True)
+
